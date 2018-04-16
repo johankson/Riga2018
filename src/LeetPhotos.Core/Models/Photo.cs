@@ -21,7 +21,7 @@ namespace LeetPhotos.Core.Models
         public string tags { get; set; }
     }
 
-    public class Photo
+    public class Feed
     {
         public string title { get; set; }
         public string link { get; set; }
