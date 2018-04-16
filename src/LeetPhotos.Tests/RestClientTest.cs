@@ -7,16 +7,16 @@ using LeetPhotos.Core.Models;
 
 namespace LeetPhotos.Tests
 {
-    public class UnitTest1
+    public class RestClientTest
     {
         [Fact]
-        public async Task Test1()
+        public async Task GetFeedTest()
         {
             // Arrange
-            var service = new RestClient();
+            var restClient = new RestClient();
 
             // Act
-            var data = await service.Get<Feed>("https://api.flickr.com/services/feeds/photos_public.gne?tags=tretton37&format=json");
+            var data = await restClient.Get<Feed>("https://api.flickr.com/services/feeds/photos_public.gne?tags=tretton37&format=json");
 
             // Assert
             Assert.NotNull(data);
