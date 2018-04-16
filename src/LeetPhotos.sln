@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetPhotos.Droid", "Droid\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetPhotos.Core", "LeetPhotos.Core\LeetPhotos.Core.csproj", "{F48452DB-B881-4EA7-B205-66BF3B92AC89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetPhotos.Tests", "LeetPhotos.Tests\LeetPhotos.Tests.csproj", "{A8638296-3B21-432D-8FE2-1C6A834C86F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -55,5 +57,17 @@ Global
 		{F48452DB-B881-4EA7-B205-66BF3B92AC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F48452DB-B881-4EA7-B205-66BF3B92AC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F48452DB-B881-4EA7-B205-66BF3B92AC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Release|iPhone.Build.0 = Release|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8638296-3B21-432D-8FE2-1C6A834C86F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
