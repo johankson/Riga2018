@@ -10,14 +10,28 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)LeetPhotosPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PhotosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PhotoDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)LeetPhotosPage.xaml.cs">
-      <DependentUpon>LeetPhotosPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PhotosView.xaml.cs">
+      <DependentUpon>PhotosView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)AutofacResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PhotoDetailView.xaml.cs">
+      <DependentUpon>PhotoDetailView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
 </Project>

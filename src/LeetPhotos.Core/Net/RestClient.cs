@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LeetPhotos.Core.Net
 {
-    public class RestClient
+	public class RestClient : IRestClient
     {
         private static HttpClient _httpClient = new HttpClient();
 
