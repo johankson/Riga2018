@@ -67,7 +67,7 @@ To build the app we will use Xamarin.Forms.
     ViewModel.BeginInvokeOnMainThread = (action) => Device.BeginInvokeOnMainThread(action);
     ```
 1. Resolve references for the code in App.xaml.cs.
-1. Create a new Forms ContentPage in the View and name it PhotosView.xaml.
+1. Create a new Forms ContentPage XAML in the Views folder and name it PhotosView.xaml.
 1. Go to App.xaml.cs and add set the new Page/View as MainPage.
     ```csharp
     NavigationHelper.SetRootView(nameof(PhotosView));
@@ -130,4 +130,45 @@ To build the app we will use Xamarin.Forms.
     ```xml
         <ListView CachingStrategy="RecycleElement" ...>
     ```
-1. Run the app!
+1. Run the app! You will hopefully se photos of awesome Ninjas!
+1. Next step is to handle when you're toucing an image. The best way to do that is to bind to the SelectedItem property to a property in the ViewModel.
+    ```xml
+        <ListView SelectedItem="{Binding SelectedPhoto}" ...>
+1. If you don't unselect the ListView you will not be able to navigate to the same item again without navigating to another photo first. The first you need to to is to give the List a name.
+     ```xml
+    <ListView x:Name="PhotoList" ...>
+    ```
+1. After that go the code behind (PhotosView.xaml.cs, not the podcast) and subscribe to the ItemSelected event in an override of OnAppearing.
+    ```csharp
+    protected override void OnAppearing()
+	{
+		base.OnAppearing();
+
+		PhotoList.ItemSelected += Photo_Selected;
+	}    
+
+    private void Photo_Selected(object sender, EventArgs e)
+	{
+		if(PhotoList.SelectedItem != null)
+		{
+			PhotoList.SelectedItem = null;
+		}
+	}
+    ```
+    It is also important to unsubscribe from the event when the user leaving the page/view.
+    ```csharp
+    protected override void OnDisappearing()
+	{
+		base.OnDisappearing();
+
+		PhotoList.ItemSelected -= Photo_Selected;
+	}
+    ```
+
+    > The Code Behind is a podcast by Daniel Hindrikes and Johan Karlsson about development, often with a .NET and mobile focus. There are an episode about Xamarin.Forms, tips and trix. Read more on https://thecodebehind.net.
+
+1. Create a new Forms ContentPage XAML in the Views folder and name it PhotoDetailView.xaml.
+1. Go to PhotoDetailView.xaml and set title on ContentPage to the title of the Photo.
+    ```xml
+    <ContentPage Title="{Binding Title}">
+    ```
