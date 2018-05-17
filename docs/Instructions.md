@@ -47,25 +47,24 @@ To build the app we will use Xamarin.Forms.
 1. Open App.xaml.cs in the LeetPhotos project and paste the code below into the constructor after InitializeComponent(). If there are other code you can remove it.
     ```csharp
     var navigationHelper = new FormsNavigationHelper(this);
-			navigationHelper.RegisterViewsInAssembly(Assembly.GetExecutingAssembly());
+    navigationHelper.RegisterViewsInAssembly(Assembly.GetExecutingAssembly());
 
-			var builder = new ContainerBuilder();
+    var builder = new ContainerBuilder();
 
-			builder.RegisterInstance<INavigationHelper>(navigationHelper);
+    builder.RegisterInstance<INavigationHelper>(navigationHelper);
 
-			// ViewModels
-            var coreAssembly = Assembly.Load(new AssemblyName("LeetPhotos.Core"));
-            builder.RegisterAssemblyTypes(coreAssembly)
-                   .Where(x => x.Name.EndsWith("ViewModel", StringComparison.Ordinal));
+    // ViewModels
+    var coreAssembly = Assembly.Load(new AssemblyName("LeetPhotos.Core"));
+    builder.RegisterAssemblyTypes(coreAssembly)
+            .Where(x => x.Name.EndsWith("ViewModel", StringComparison.Ordinal));
 
-			builder.RegisterType<RestClient>().As<IRestClient>();
-			builder.RegisterType<PhotoService>().As<IPhotoService>();
+    builder.RegisterType<RestClient>().As<IRestClient>();
+    builder.RegisterType<PhotoService>().As<IPhotoService>();
 
-			var container = builder.Build();
-			Resolver.SetResolver(new AutofacResolver(container));
+    var container = builder.Build();
+    Resolver.SetResolver(new AutofacResolver(container));
 
-			ViewModel.BeginInvokeOnMainThread = (action) => Device.BeginInvokeOnMainThread(action);
-
+    ViewModel.BeginInvokeOnMainThread = (action) => Device.BeginInvokeOnMainThread(action);
     ```
 1. Resolve references for the code in App.xaml.cs.
 1. Create a new Forms ContentPage in the View and name it PhotosView.xaml.
@@ -78,8 +77,8 @@ To build the app we will use Xamarin.Forms.
     BindingContext = Resolver.Resolve<PhotosViewModel>();
     ```
 1. Go to PhotosView.xaml and set title on ContentPage to Leet Photos.
-    ```csharp
-        <ContentPage Title="Leet Photos">
+    ```xml
+    <ContentPage Title="Leet Photos">
     ```
 1. Add a ListView to the PhotosView and bind ItemsSource to the Photos property. Set the RowHeight to 300.
     ```xml
@@ -125,10 +124,10 @@ To build the app we will use Xamarin.Forms.
 
 1. Remove the default row separator of the ListView by setting SeperatorVisibility to None.
     ```xml
-        <ListView SeparatorVisibility="None">
+        <ListView SeparatorVisibility="None" ...>
     ```
 1. To make the ListView reuse cells that not are visible om the screen, add CachingStrategy, RecycleElement to the ListView.
     ```xml
-        <ListView CachingStrategy="RecycleElement">
+        <ListView CachingStrategy="RecycleElement" ...>
     ```
 1. Run the app!
