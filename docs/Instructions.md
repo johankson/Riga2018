@@ -21,11 +21,24 @@ To build the app we will use Xamarin.Forms.
         OrganizationIdentifier = "com.tretton37";
     ``` 
 1. Click Next.
+
+    > This will create two platform specific projects (one for iOS and one for Android) and a shared project that is compiled both iOS and Android on build time. The shared project can only use libraries that both environments have referenced. So if you want to be able to use a nuget-package, you need to add it to both iOS and Android.
+
 1. Click Create.
 1. Select either the iOS- or Android project as startup and run the app.
 1. Gratz! You have created your first native cross platform app.
+
+    > The app is compiled ahead of time (AOT) on iOS which will restrict some usage of reflection. You cannot generate and execute code in iOS dynamically because of this.
+    >
+    > On Android the code is compiled to IL and just-in-time (JITted) compiled by the .net runtime. 
+
 1. Add references to LeetPhotos.Core on both iOS- and Android project.
-1. Install Autofac, Newtonsoft.Json and TinyNavigationHelper.Forms on both iOS and Android project.
+1. Install ```Autofac```, ```Newtonsoft.Json``` and ```TinyNavigationHelper.Forms``` on both iOS and Android project.
+
+    > Autofac takes care of inversion of control (IoC) and handles you container.
+    > Newtonsoft handles all you json worries (serialization/deserialization),
+    > TinyNavigationHelper.Forms abstracts navigation (jumping between views) from Xamarin.Forms
+
 1. Create a new class in the LeetPhotos project and name it AutofacResolver.
 1. Paste the code below:
     ```csharp
@@ -44,7 +57,11 @@ To build the app we will use Xamarin.Forms.
 		}
 	}
     ```
+
+    > A resolver takes care of giving you an instance of a type that you request. This specific one wraps Autofac and exposes it as a generic resolver. Good and handy if you decide to replace Autofac later on in the project.
+
 1. Open App.xaml.cs in the LeetPhotos project and paste the code below into the constructor after InitializeComponent(). If there are other code you can remove it.
+
     ```csharp
     var navigationHelper = new FormsNavigationHelper(this);
     navigationHelper.RegisterViewsInAssembly(Assembly.GetExecutingAssembly());
@@ -66,16 +83,34 @@ To build the app we will use Xamarin.Forms.
 
     ViewModel.BeginInvokeOnMainThread = (action) => Device.BeginInvokeOnMainThread(action);
     ```
+
+    > First we initialize the navigation helper by registering all the available views into TinyNavigationHelper. We can then navigate to views based on their class name.
+    >
+    > After that we create a ContainerBuilder. This is always done at startup. You can also pass the builder to platform specific code to register platform specific implementations of interfaces.
+    >
+    >Then we register all classes that ends with ```ViewModel``` from the core project.
+    >
+    >We move on to registering services such as ```RestClient``` and ```PhotoService```. We also provide what interface we want to be associated so when we ask for a ```IRestClient```, we will receive an instance of ```RestClient```.
+    >
+    >When all registration is complete we build the container and register it to the resolver. The resolver (that we added earlier) will then be our entrypoint for locating actual objects that implement interfaces that we ask for.
+    >
+    >Last but not least we provide the core project with an entrypoint to the main thread so that we can execute code on the UI thread from the UI agnostic core library.
+
 1. Resolve references for the code in App.xaml.cs.
 1. Create a new Forms ContentPage in the View and name it PhotosView.xaml.
 1. Go to App.xaml.cs and add set the new Page/View as MainPage.
     ```csharp
     NavigationHelper.SetRootView(nameof(PhotosView));
     ```
+
+    > The NavigationHelper uses the name of the view we want to set as a rootview and creates it internally. This is a feature of TinyNavigationHelper, not Xamarin.Forms.
+
 1. In the constructor of PhotosView.xaml.cs and Set BindingContext to the PhotosViewModel.
     ```csharp
     BindingContext = Resolver.Resolve<PhotosViewModel>();
     ```
+
+    > The BindingContext is what makes Xamarin.Forms an excellent candidate for MVVM. This means that we will have access to whatever object you assign to it from the View itself (Through a ```{Binding Property}``` statement.)
 1. Go to PhotosView.xaml and set title on ContentPage to Leet Photos.
     ```xml
     <ContentPage Title="Leet Photos">
@@ -87,14 +122,17 @@ To build the app we will use Xamarin.Forms.
     ```
 1. In the ListView, add a template for each item.
     ```xml
-    <ListView ItemsSource="{Binding Photos">
+    <ListView ItemsSource="{Binding Photos}">
         <ListView.ItemTemplate>
             <DataTemplate>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
     ```
-1. I a ListView, every row needs to be a Cell, so you need to add all content in a ViewCell.
+
+    > The object bound to the ItemSource will be the ViewModels Photos property which is a list of photos. Each row will then set the BindingContext to each item in that list as it's being rendered.
+
+1. In a ListView, every row needs to be a Cell, so you need to add all content in a ViewCell.
     ```xml
     <ListView ItemsSource="{Binding Photos">
         <ListView.ItemTemplate>
