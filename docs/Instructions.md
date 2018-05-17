@@ -3,7 +3,7 @@ During this workshop we will create a photo app that fetches photos from Flickr 
 
 To build the app we will use Xamarin.Forms. 
 
-# Exercise 1 - Photo feed
+## Exercise 1 - Photo feed
 
 1. Clone this repository in Visual Studio 2018 or Visual Studio for Mac.   
     ```git clone https://github.com/johankson/Riga2018.git```
@@ -251,4 +251,16 @@ To build the app we will use Xamarin.Forms.
     ```
 1. Run the app :D
 
-
+## Exercise 2 - Pull to refresh
+1. First you need to enable pull to refresh on the ListView.
+    ```xml
+    <ListView IsPullToRefreshEnabled="true" ...>
+    ```
+2. If you want to show a loading indicator when reloading you can bind a bool property in the ViewModel to IsRefreashing. If you like in this case binding to IsBusy it will show the loading indicator even on the initialize load of the feed. If you doesn't want that behavior you can create another property in the ViewModel.
+    ```xml
+    <ListView IsRefreshing="{Binding IsBusy}" IsPullToRefreshEnabled="true"  ...>
+    ```
+3. Last step to enable pull to refresh is to specify which Command that should run when the user is triggering a refresh. To do that bind the refresh command in the ViewModel to the RefreshCommand property of the ListView.
+    ```xml
+    <ListView IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy}" RefreshCommand="{Binding Refresh}" ...>
+```
