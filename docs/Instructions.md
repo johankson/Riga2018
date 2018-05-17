@@ -3,6 +3,8 @@ During this workshop we will create a photo app that fetches photos from Flickr 
 
 To build the app we will use Xamarin.Forms. 
 
+# Exercise 1 - Photo feed
+
 1. Clone this repository in Visual Studio 2018 or Visual Studio for Mac.   
     ```git clone https://github.com/johankson/Riga2018.git```
 2. Check out start branch.
@@ -208,5 +210,45 @@ To build the app we will use Xamarin.Forms.
 1. Create a new Forms ContentPage XAML in the Views folder and name it PhotoDetailView.xaml.
 1. Go to PhotoDetailView.xaml and set title on ContentPage to the title of the Photo.
     ```xml
-    <ContentPage Title="{Binding Title}">
+    <ContentPage Title="{Binding Title}" ...>
     ```
+1. Add a ScrollView to the Page so the user can scroll if the content is heigher than the screen height.
+    ```xml
+    <ContentPage ...>
+    <ScrollView>
+    </ScrollView>
+    </ContentPage>
+    ```
+1. Create a Grid with two rows, the first for the Image, 300 in height and one for the details.
+    ```xml
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Image Source="{Binding Url}" Aspect="AspectFill" HeightRequest="300" />
+    </Grid>
+    ```
+1. As row one add a StackLayout with padding.
+    ```xml
+    <StackLayout Padding="10" Grid.Row="1">
+
+    </StackLayout>
+    ```
+1. In the StackLayout, add the title and labels for photo details. Use font size medium for the headsers and micro for the rest of the labels. Use bold labels for headers.
+
+    ```xml
+     <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="Medium" />
+
+    <Label Text="Taken by" FontAttributes="Bold" FontSize="Micro" />
+    <Label Text="{Binding Author}" FontSize="Micro" />
+    
+    <Label Text="Photo taken" FontAttributes="Bold" FontSize="Micro" />
+    <Label Text="{Binding DateTaken}" FontSize="Micro" />
+    
+    <Label Text="Tags" FontAttributes="Bold" FontSize="Micro" />
+    <Label Text="{Binding Tags}" FontSize="Micro" />
+    ```
+1. Run the app :D
+
+
