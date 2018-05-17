@@ -8,8 +8,7 @@
         <Image Source="{Binding Url}" Aspect="AspectFill" HeightRequest="300" />
         <StackLayout Padding="10" Grid.Row="1">
             <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="Medium" />
-
-             <Label Text="Taken by" FontAttributes="Bold" FontSize="Micro" />
+            <Label Text="Taken by" FontAttributes="Bold" FontSize="Micro" />
             <Label Text="{Binding Author}" FontSize="Micro" />
             <Label Text="Photo taken" FontAttributes="Bold" FontSize="Micro" />
             <Label Text="{Binding DateTaken}" FontSize="Micro" />
